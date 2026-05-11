@@ -1,0 +1,27 @@
+server:
+  port: ${SERVER_PORT:4000}
+  shutdown: graceful
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health,info
+
+springdoc:
+  packages-to-scan: uk.gov.hmcts.reform.dev
+  writer-with-order-by-keys: true
+
+spring:
+  application:
+    name: case-task-service-api
+  config:
+    import: optional:configtree:/mnt/secrets/case-task-service-api/
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
