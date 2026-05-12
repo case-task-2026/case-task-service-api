@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.dev.domain
+package uk.gov.hmcts.reform.dev.task.domain
 
 import uk.gov.hmcts.reform.dev.task.domain.*
 import java.time.Clock
