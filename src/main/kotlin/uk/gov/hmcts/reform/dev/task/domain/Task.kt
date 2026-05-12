@@ -71,7 +71,7 @@ class Task private constructor(
             title: String,
             description: String?,
             status: TaskStatus,
-            dueDatetime: OffsetDateTime,
+            dueDateTime: OffsetDateTime,
             createdAt: OffsetDateTime,
             updatedAt: OffsetDateTime
         ): Task{
@@ -82,7 +82,7 @@ class Task private constructor(
                 title = TaskTextNormalizer.normalizeTitle(title),
                 description = TaskTextNormalizer.normalizeDescription(description),
                 status = status,
-                dueDatetime = dueDatetime,
+                dueDatetime = dueDateTime,
                 createdAt = createdAt,
                 updatedAt = createdAt
             )
