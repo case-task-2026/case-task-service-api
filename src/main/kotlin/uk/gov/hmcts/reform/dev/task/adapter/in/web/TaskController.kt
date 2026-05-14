@@ -1,6 +1,7 @@
 package uk.gov.hmcts.reform.dev.task.adapter.`in`.web
 
 import jakarta.validation.Valid
+import java.net.URI
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import uk.gov.hmcts.reform.dev.task.application.TaskFacade
-import uk.gov.hmcts.reform.dev.task.domain.TaskId
-import java.net.URI
 
 @RestController
 @RequestMapping("/tasks")
@@ -39,7 +38,9 @@ class TaskController(
     fun getTask(
         @PathVariable taskId: String
     ): ResponseEntity<TaskResponse> {
-        val task = taskFacade.getTask(TaskId.from(taskId))
+        val task = taskFacade.getTask(
+            taskWebMapper.toTaskId(taskId)
+        )
 
         return ResponseEntity.ok(taskWebMapper.toResponse(task))
     }
@@ -59,7 +60,7 @@ class TaskController(
     ): ResponseEntity<TaskResponse> {
         val updatedTask = taskFacade.updateTaskDetails(
             taskWebMapper.toUpdateDetailsCommand(
-                taskId = TaskId.from(taskId),
+                taskId = taskWebMapper.toTaskId(taskId),
                 request = request
             )
         )
@@ -74,7 +75,7 @@ class TaskController(
     ): ResponseEntity<TaskResponse> {
         val updatedTask = taskFacade.updateTaskStatus(
             taskWebMapper.toUpdateStatusCommand(
-                taskId = TaskId.from(taskId),
+                taskId = taskWebMapper.toTaskId(taskId),
                 request = request
             )
         )
@@ -86,10 +87,10 @@ class TaskController(
     fun deleteTask(
         @PathVariable taskId: String
     ): ResponseEntity<Void> {
-        taskFacade.deleteTask(TaskId.from(taskId))
+        taskFacade.deleteTask(
+            taskWebMapper.toTaskId(taskId)
+        )
 
         return ResponseEntity.noContent().build()
-
     }
-
 }

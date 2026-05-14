@@ -10,6 +10,14 @@ import uk.gov.hmcts.reform.dev.task.domain.TaskId
 @Component
 class TaskWebMapper {
 
+    fun toTaskId(taskId: String): TaskId {
+        return runCatching {
+            TaskId.from(taskId)
+        }.getOrElse {
+            throw InvalidTaskIdException(taskId)
+        }
+    }
+
     fun toCreateCommand(request: CreateTaskRequest): CreateTaskCommand {
         return CreateTaskCommand(
             title = requireNotNull(request.title),
@@ -51,5 +59,4 @@ class TaskWebMapper {
             updatedAt = task.updatedAt
         )
     }
-
 }

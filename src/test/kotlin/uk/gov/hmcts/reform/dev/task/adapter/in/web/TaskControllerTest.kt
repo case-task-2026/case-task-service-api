@@ -12,9 +12,11 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.patch
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.put
 import uk.gov.hmcts.reform.dev.task.adapter.out.persistence.SpringDataTaskJpaRepository
+
 
 
 @ActiveProfiles
@@ -113,7 +115,7 @@ class TaskControllerTest(
 
         val createdTaskId = createTaskAndReturnId("Check status update")
 
-        mockMvc.put("/tasks/$createdTaskId/status") {
+        mockMvc.patch("/tasks/$createdTaskId/status") {
             contentType = MediaType.APPLICATION_JSON
             content = """
                 {
