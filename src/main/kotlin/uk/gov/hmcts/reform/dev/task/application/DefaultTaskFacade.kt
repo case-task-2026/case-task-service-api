@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.dev.task.application
 
+import org.springframework.stereotype.Service
 import uk.gov.hmcts.reform.dev.task.application.port.TaskRepository
 import uk.gov.hmcts.reform.dev.task.domain.CreateTaskCommand
 import uk.gov.hmcts.reform.dev.task.domain.Task
@@ -8,6 +9,7 @@ import uk.gov.hmcts.reform.dev.task.domain.TaskId
 import java.time.Clock
 import java.time.OffsetDateTime
 
+@Service
 class DefaultTaskFacade(
     private val taskRepository: TaskRepository,
     private val taskFactory: TaskFactory,
